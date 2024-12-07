@@ -1,13 +1,13 @@
-package com.example.Grpc;
+package ma.projet.grpc;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GrpcServiceApplicationTests {
+class Grpc2ApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
 }

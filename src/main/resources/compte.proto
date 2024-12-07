@@ -1,8 +1,6 @@
 syntax = "proto3";
-
 option java_package = "ma.projet.grpc.stubs";
 option java_multiple_files = true;
-
 
 // Enumération pour le type de compte
 enum TypeCompte {
@@ -70,31 +68,40 @@ message SaveCompteResponse {
   Compte compte = 1;
 }
 
-// Message pour supprimer un compte
+message GetCompteByTypeRequest {
+  TypeCompte type = 1;
+}
+
+message GetCompteByTypeResponse {
+  repeated Compte comptes = 1;
+}
+
 message DeleteCompteRequest {
-  string id = 1; // ID of the compte to delete
+  string id = 1;
 }
 
-// Réponse pour la suppression d'un compte
 message DeleteCompteResponse {
-  bool success = 1; // Whether the deletion was successful
+  bool success = 1;
+  string message = 2;
 }
 
-// Requête pour obtenir les comptes par type
-message GetComptesByTypeRequest {
-  TypeCompte type = 1; // Type of compte to filter by
-}
-
-// Réponse contenant les comptes du type demandé
-message GetComptesByTypeResponse {
-  repeated Compte comptes = 1; // List of comptes of the specified type
-}
-
+// Définition du service correspondant aux requêtes et mutations GraphQL
 service CompteService {
+  // Équivalent de la requête allComptes
   rpc AllComptes(GetAllComptesRequest) returns (GetAllComptesResponse);
+
+  // Équivalent de la requête compteById
   rpc CompteById(GetCompteByIdRequest) returns (GetCompteByIdResponse);
+
+  // Équivalent de la requête totalSolde
   rpc TotalSolde(GetTotalSoldeRequest) returns (GetTotalSoldeResponse);
+
+  // Équivalent de la mutation saveCompte
   rpc SaveCompte(SaveCompteRequest) returns (SaveCompteResponse);
+
+  // Get accounts by type
+  rpc CompteByType(GetCompteByTypeRequest) returns (GetCompteByTypeResponse);
+  
+  // Delete account
   rpc DeleteCompte(DeleteCompteRequest) returns (DeleteCompteResponse);
-  rpc GetComptesByType(GetComptesByTypeRequest) returns (GetComptesByTypeResponse);
 }
